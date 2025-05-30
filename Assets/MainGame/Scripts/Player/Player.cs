@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerContainer))
             {
-                Debug.Log(hit.collider.name);
                 container = hit.collider.gameObject.GetComponent<Container>();
                 container.MoveContainNer();
             }
