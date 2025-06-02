@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9170774061014352883}
-  m_Layer: 0
+  - component: {fileID: 5846998716009341780}
+  - component: {fileID: 8506855306982454922}
+  m_Layer: 6
   m_Name: Box
   m_TagString: Container
   m_Icon: {fileID: 0}
@@ -33,6 +35,42 @@ Transform:
   - {fileID: 546969907777829759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &5846998716009341780
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248448450740396166}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.28
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.36
+  m_BaseOffset: 0.18
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &8506855306982454922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248448450740396166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e65ee3b344eae64facab2b1b59e44dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
+  posToMove: {fileID: 0}
 --- !u!1 &5604910265073609645
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +276,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7334702869700812233}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -269,11 +307,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667999e8da4efea4fb3b7fd2d6b38f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
-  amoutSlot: 0
-  moveSpeed: 3
+  ID: 2
+  rangeRaycast: 10
+  amoutSlot: 8
+  moveSpeed: 10
+  distanceMove: 10
   layerContainer:
     serializedVersion: 2
     m_Bits: 64
+  layerWall:
+    serializedVersion: 2
+    m_Bits: 128
   isMove: 0
   transformParent: {fileID: 9170774061014352883}
+  targetPosition: {x: 0, y: 0, z: 0}

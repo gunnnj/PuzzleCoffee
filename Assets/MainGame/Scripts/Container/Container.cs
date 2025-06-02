@@ -3,17 +3,23 @@ using UnityEngine;
 public class Container : MonoBehaviour
 {
     public int ID;
+    public float rangeRaycast;
     public int amoutSlot;
     public float moveSpeed;
+    public float distanceMove;
     public LayerMask layerContainer;
+    public LayerMask layerWall;
     public bool isMove = false;
     public Transform transformParent;
-    Vector3 targetPosition;
+    public Vector3 targetPosition;
+    private MoveToPoint moveToPoint;
+    public int indexRoute;
     Material material;
     void Start()
     {
+        moveToPoint = GetComponentInParent<MoveToPoint>();
         material = GetComponent<MeshRenderer>().material;
-        targetPosition = transformParent.position + transform.forward * 10f;
+        targetPosition = transformParent.position + transform.forward * distanceMove;
 
         ScaleWithSlot();
         ChangeColor();
@@ -23,6 +29,7 @@ public class Container : MonoBehaviour
     {
         if(isMove){
             MoveForward();
+            // MoveContainNer();
         }
     }
     public void ScaleWithSlot(){
@@ -46,17 +53,32 @@ public class Container : MonoBehaviour
 
     public void CheckContainer(){
         RaycastHit hit;
-        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.red, 5f);
-        if(Physics.Raycast(transform.position,transform.forward,out hit,5f, layerContainer)){
+        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.red);
+        if(Physics.Raycast(transform.position,transform.forward,out hit,rangeRaycast, layerContainer)){
             Debug.Log(gameObject.name+" Don't move");
         }
         else{
+            
             isMove = true;
+            
         }
         
     }
     public void MoveForward(){
-        transformParent.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        RaycastHit hit;
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 1f, Color.green);
+        if (!Physics.Raycast(transform.position,transform.forward,out hit,1f, layerWall))
+        {
+            transformParent.position = Vector3.MoveTowards(transformParent.position, targetPosition, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Debug.Log("Stop");
+            isMove = false;
+            indexRoute = Route.Instance.CompareDistance(transform.position);
+            moveToPoint.SetRoute(indexRoute);
+            // moveToPoint.SetDestination();
+        }
     }
 
 

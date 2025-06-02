@@ -15,7 +15,7 @@ public class ManageContainer : MonoBehaviour
     }
     void Start()
     {
-        // AddListContainer();
+        AddListContainer();
     }
 
     public Color GetColor(int value){
@@ -24,7 +24,7 @@ public class ManageContainer : MonoBehaviour
 
     public void AddListContainer(){
         for(int i=0; i<transform.childCount; i++){
-            Container container = transform.GetChild(i).gameObject.GetComponent<Container>();
+            Container container = transform.GetChild(i).GetChild(0).gameObject.GetComponent<Container>();
             listContainer.Add(container);
         }
     }
